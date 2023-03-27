@@ -1,36 +1,41 @@
 using UnityEngine;
 
-public class CameraMover  {
-    private Vector3 src;
-    private Vector3 target;
-    private float interpolateAmount;
+namespace CameraSystem {
 
-    private Vector3 currentPosition;
-    private bool complete;
-    private float lerpSpeed = 0.5f;
+    public class CameraMover  {
+        private Vector3 src;
+        private Vector3 target;
+        private float interpolateAmount;
 
-    public CameraMover(Vector3 src, Vector3 target) {
-        this.src = src;
-        this.target = target;
-        interpolateAmount = 0.0f;
-        complete = false;
-    }
+        private Vector3 currentPosition;
+        private bool complete;
+        private float lerpSpeed = 0.5f;
 
-    public Vector3 Move() {
-        interpolateAmount =  Mathf.Clamp01(interpolateAmount + Time.deltaTime * lerpSpeed);
-        Debug.Log(interpolateAmount);
+        public CameraMover(Vector3 src, Vector3 target) {
+            this.src = src;
+            this.target = target;
+            interpolateAmount = 0.0f;
+            complete = false;
+        }
 
-        if(interpolateAmount == 1.0) {
-            complete = true;
+        public Vector3 Move() {
+            interpolateAmount =  Mathf.Clamp01(interpolateAmount + Time.deltaTime * lerpSpeed);
+            Debug.Log(interpolateAmount);
+
+            if(interpolateAmount == 1.0) {
+                complete = true;
+                return currentPosition;
+            }
+            
+            currentPosition = Vector3.Lerp(src, target, interpolateAmount);
             return currentPosition;
         }
-        
-        currentPosition = Vector3.Lerp(src, target, interpolateAmount);
-        return currentPosition;
-    }
 
-    public bool Complete() {
-        return complete;
+        public bool Complete() {
+            return complete;
+        }
+
     }
 
 }
+

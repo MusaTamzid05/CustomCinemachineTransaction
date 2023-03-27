@@ -2,31 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour {
+namespace CameraSystem {
 
-    [SerializeField] 
-    private Vector3 point1;
+    public class CameraController : MonoBehaviour {
 
-    [SerializeField] 
-    private Vector3 point2;
+        [SerializeField] 
+        private Vector3 point1;
 
-    private CameraMover mover;
+        [SerializeField] 
+        private Vector3 point2;
 
-    [SerializeField]
-    private Transform targetTransform;
+        private CameraMover mover;
 
-    void Start() {
-        mover = new CameraMover(point1, point2);
-        transform.position = point1;
-        
-    }
+        [SerializeField]
+        private Transform targetTransform;
 
-    // Update is called once per frame
-    void Update() {
-        if(!mover.Complete()) {
-            transform.position = mover.Move();
-            transform.LookAt(targetTransform);
+        void Start() {
+            mover = new CameraMover(point1, point2);
+            transform.position = point1;
+            
         }
-        
+
+        // Update is called once per frame
+        void Update() {
+            if(!mover.Complete()) {
+                transform.position = mover.Move();
+                transform.LookAt(targetTransform);
+            }
+            
+        }
     }
+
 }
+

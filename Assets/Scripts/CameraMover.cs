@@ -9,13 +9,14 @@ namespace CameraSystem {
 
         private Vector3 currentPosition;
         private bool complete;
-        private float lerpSpeed = 0.5f;
+        private float lerpSpeed;
 
-        public CameraMover(Vector3 src, Vector3 target) {
+        public CameraMover(Vector3 src, Vector3 target, float lerpSpeed) {
             this.src = src;
             this.target = target;
             interpolateAmount = 0.0f;
             complete = false;
+            this.lerpSpeed = lerpSpeed;
         }
 
         public Vector3 Move() {

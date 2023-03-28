@@ -4,9 +4,11 @@ namespace CameraSystem {
 
     public class StateMachine  {
         private CameraState currentState;
+        private CameraState prevState;
 
         public StateMachine() {
             currentState = null;
+            prevState = null;
         }
 
         public void ChangeState(CameraState state, CameraController cameraController) {
@@ -16,12 +18,17 @@ namespace CameraSystem {
                 currentState.OnExit(cameraController);
             }
 
+            prevState = currentState;
             currentState = state;
             currentState.OnEnter(cameraController);
         }
 
         public CameraState GetCurrentState() {
             return currentState;
+        }
+
+        public CameraState GetPrevState() {
+            return prevState;
         }
     }
 

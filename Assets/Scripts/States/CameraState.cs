@@ -4,6 +4,7 @@ namespace CameraSystem {
         public enum Type {
             Idle,
             Transaction,
+            Second,
         };
 
         public Type type;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -11,17 +9,19 @@ namespace CameraSystem {
 
         public override void OnEnter(CameraController cameraController) {
             cameraController.LookAtTarget();
-            Vector3 src = cameraController.transform.position;
-            Vector3 dst = cameraController.camera2.transform.position;
-
-            cameraController.mover = new CameraMover(src, dst);
 
         }
 
         public override void OnExecute(CameraController cameraController) {
             cameraController.LookAtTarget();
-            if(cameraController.GoNextPosition())
+            if(cameraController.GoNextPosition()) {
+                if(CameraController.instance.stateMachine.GetPrevState().type == CameraState.Type.Idle)
+
+                cameraController.stateMachine.ChangeState(new SecondCameraState(), cameraController);
+                else
                 cameraController.stateMachine.ChangeState(new IdleState(), cameraController);
+
+            }
 
         }
 
